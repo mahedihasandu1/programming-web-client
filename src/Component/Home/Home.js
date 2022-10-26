@@ -6,7 +6,7 @@ const Home = () => {
 
 
     return (
-        <div  className='w-[80%] mx-auto'>
+        <div  className='w-[90%] mx-auto'>
             <div className='coustom-css'>
             <div className="carousel w-full">
                 <div id="slide1" className="carousel-item relative w-full">
