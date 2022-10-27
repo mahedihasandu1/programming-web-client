@@ -15,7 +15,7 @@ const Course = ({ course }) => {
                     <h2 className="card-title">{title}</h2>
                     <p>{details}</p>
                     <div className="card-actions justify-end">
-                        <p className='font-bold text-violet-900'>BDT :{price}</p>
+                        {/* <p className='font-bold text-violet-900'>BDT :{price}</p> */}
                     </div>
                 </div>
             </div>
