@@ -58,7 +58,7 @@ const UserContext = ({ children }) => {
             setLoading(false);
         });
         return () => { unsubscribe() }
-    }, []);
+    }, [setLoading]);
 
     const userInfo = { user, loading, setLoading, createUSer, verifyEmail, updateUserProfile, signIn, logOut, toogleTheme, theme, googleLogin, facebookLogin }
     return (
