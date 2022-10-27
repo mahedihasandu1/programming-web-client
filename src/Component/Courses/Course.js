@@ -9,7 +9,7 @@ const Course = ({ course }) => {
     
     return (
         <Link to={`../courses/${id}`} Link-label='View Item'>
-            <div className="card w-96 bg-base-100 shadow-xl p-2">
+            <div className="card mx-auto w-96 bg-base-100 shadow-xl p-2">
                 <img src={image} alt="Shoes" />
                 <div className="card-body">
                     <h2 className="card-title">{title}</h2>

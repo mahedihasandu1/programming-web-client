@@ -12,7 +12,7 @@ const Courses = () => {
                 <MediaHanger></MediaHanger>
             </div>
             <div className='md:flex-grow '>
-               <div className='grid gap-6 row-gap-5 mb-8 lg:grid-cols-3 sm:row-gap-6 sm:grid-cols-1'>
+               <div className='grid gap-6 row-gap-5 mb-8 lg:grid-cols-3 sm:row-gap-3 sm:grid-cols-1'>
                 {
                     data.map(course=> (<Course course={course} key={course.id} ></Course>) )
                 }
