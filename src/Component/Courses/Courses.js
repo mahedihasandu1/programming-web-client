@@ -4,7 +4,6 @@ import Course from './Course';
 
 const Courses = () => {
     const data = useLoaderData()
-    
         
     return (
         <div className='flex flex-col md:flex-row spacey-6  md:space-y-0 md:space-x-12 mt-10'>
