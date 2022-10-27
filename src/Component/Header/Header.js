@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import ReactSwitch from 'react-switch'
 import { AuthContext } from '../../UserContext/UserContext';
+import {FaMoon} from 'react-icons/fa';
 
 const Header = () => {
-  const { user, logOut} = useContext(AuthContext)
+  const { user, logOut,theme, SetTheme} = useContext(AuthContext)
   // console.log(user);
   
   const handleLogOut = () => {
@@ -14,8 +14,9 @@ const Header = () => {
 }
 
 
+
   return (
-    <div className="sm:px-0 md:px-[10%] navbar  bg-cyan-700  text-white">
+    <div className={`sm:px-0 md:px-[10%] navbar   text-white ${theme?"bg-cyan-600":"bg-cyan-800"}`}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -72,7 +73,11 @@ const Header = () => {
 
 
       <div className=" navbar-end ">
-        <ReactSwitch></ReactSwitch>
+      <div className=" cursor-pointer mr-2" onClick={() => SetTheme(!theme)}>
+                            {
+                                theme ? <FaMoon/>:<FaMoon/>
+                            }
+                        </div>
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
             <img alt='' title={user?.displayName} src={user?.photoURL} />
