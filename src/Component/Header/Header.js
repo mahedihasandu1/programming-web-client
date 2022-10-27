@@ -4,8 +4,15 @@ import ReactSwitch from 'react-switch'
 import { AuthContext } from '../../UserContext/UserContext';
 
 const Header = () => {
-  const { user, logOut } = useContext(AuthContext)
-  console.log(user);
+  const { user, logOut} = useContext(AuthContext)
+  // console.log(user);
+  
+  const handleLogOut = () => {
+    logOut()
+        .then(() => { })
+        .catch(error => console.error(error))
+}
+
 
   return (
     <div className="sm:px-0 md:px-[10%] navbar  bg-cyan-700  text-white">
@@ -75,7 +82,7 @@ const Header = () => {
         <div className="ml-2">
         {
           user?.uid ?
-            <button className='ml-2 btn btn-ghost' onClick={logOut}>logOut</button > :
+            <button className='ml-2 btn btn-ghost' onClick={handleLogOut}>logOut</button > :
             <>
               <Link className="ml-2 btn btn-ghost" to="/login">Login</Link>
               <Link className="ml-2 btn btn-ghost" to="/registration">Signup</Link>

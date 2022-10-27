@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../UserContext/UserContext';
-
+import { FaFacebook,FaGoogle} from 'react-icons/fa';
 
 
 
@@ -12,7 +12,7 @@ const auth=getAuth()
 
 const Login = () => {
   const [error, setError ]  = useState(null)
-  const { signIn ,googleLogin, facebookLogin,setUser} = useContext(AuthContext)
+  const { signIn,setLoading ,googleLogin, facebookLogin} = useContext(AuthContext)
   const [userEmail,setUserEmail]=useState('')
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider=new FacebookAuthProvider();
@@ -20,11 +20,11 @@ const Login = () => {
 
   const navigate=useNavigate()
   let location=useLocation()
-  let from = location.state?.from?.pathname || "/";
+
+  const from = location.state?.from?.pathname || '/';
 
 
-
-  const handleSgnIn = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target;
     const email = form.email.value;
@@ -37,10 +37,18 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         form.reset()
-        navigate(from,{replace: true})
+        setError('');
+        if(user.emailVerified){
+          navigate(from, {replace: true});
+      }
+      else{
+          alert('Your email is not verified. Please verify your email address.')
+      }
+    }).catch(error => setError(error.message)
+    ).finally(() => {
+      setLoading(false);
+    })
 
-      })
-      .catch(error => setError(error.message))
   }
   const handleGoogle=()=>{
    googleLogin(googleProvider)
@@ -56,7 +64,6 @@ const Login = () => {
     .then(result => {
       const user = result.user;
       console.log(user);
-      setUser(user)
   
     })
     .catch(error => setError(error.message))
@@ -88,7 +95,7 @@ const Login = () => {
             </h2>
 
           </div>
-          <form onSubmit={handleSgnIn} className="mt-8 space-y-6" action="#" method="POST">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -146,8 +153,8 @@ const Login = () => {
               <p className='text-red-800 font-bold text-center'>{error}</p>
             </div>
             <div className='flex justify-between'>
-              <button  onClick={handleGoogle} className='btn btn-secondary'>Google</button>
-              <button  onClick={handleFacebook} className='btn btn-info'>Facebook</button>
+              <button  onClick={handleGoogle}   className='btn btn-ghost'>Google   <FaGoogle/></button>
+              <button  onClick={handleFacebook} className='btn btn-ghost'>Facebook <FaFacebook/></button>
 
             </div>
           </form>

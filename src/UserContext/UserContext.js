@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth,  onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useState } from "react";
 import app from "../FirebaseConfig/firebseConfig";
 import '../App.css'
@@ -29,11 +29,19 @@ const UserContext = ({ children }) => {
         return signInWithPopup(auth, googleProvider)
     }
     const facebookLogin = (facebookProvider) => {
-        return signInWithPopup(auth,facebookProvider)
+        return signInWithPopup(auth, facebookProvider)
     }
-   
-    const logout = () => {
-        return signOut(auth)
+
+    const updateUserProfile = (profile) => {
+        return updateProfile(auth.currentUser, profile);
+    }
+
+    const verifyEmail = () => {
+        return sendEmailVerification(auth.currentUser);
+    }
+
+    const logOut = () => {
+        return signOut(auth);
     }
 
     const toogleTheme = () => {
@@ -42,16 +50,17 @@ const UserContext = ({ children }) => {
 
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentuser => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log('current user State change')
-            setUser(currentuser)
-            setLoading(false)
-    
-         });return ()=>unSubscribe()
-        
-    }, [])
+            if (currentUser === null || currentUser.emailVerified) {
+                setUser(currentUser);
+            }
+            setLoading(false);
+        });
+        return () => { unsubscribe() }
+    }, []);
 
-    const userInfo = { user, setUser, createUSer, signIn, logout, toogleTheme, theme,googleLogin , facebookLogin}
+    const userInfo = { user, loading, setLoading, createUSer, verifyEmail, updateUserProfile, signIn, logOut, toogleTheme, theme, googleLogin, facebookLogin }
     return (
         <AuthContext.Provider value={userInfo}>
             {children}
