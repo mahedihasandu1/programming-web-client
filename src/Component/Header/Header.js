@@ -68,20 +68,20 @@ const Header = () => {
         <ReactSwitch></ReactSwitch>
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img alt='' title={user.displayName} src={user.photoURL} />
+            <img alt='' title={user?.displayName} src={user?.photoURL} />
           </div>
         </label>
 
+        <div className="ml-2">
         {
           user?.uid ?
-            <button className='aa' onClick={logOut}>logOut</button > :
+            <button className='ml-2 btn btn-ghost' onClick={logOut}>logOut</button > :
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
+              <Link className="ml-2 btn btn-ghost" to="/login">Login</Link>
+              <Link className="ml-2 btn btn-ghost" to="/registration">Signup</Link>
             </>
         }
-
-
+        </div>
       </div>
 
 

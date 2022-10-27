@@ -23,7 +23,7 @@ const Login = () => {
   let from = location.state?.from?.pathname || "/";
 
 
-  
+
   const handleSgnIn = (e) => {
     e.preventDefault()
     const form = e.target;
@@ -37,6 +37,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         form.reset()
+        navigate(from,{replace: true})
 
       })
       .catch(error => setError(error.message))
@@ -46,6 +47,7 @@ const Login = () => {
    .then(result => {
     const user = result.user;
     console.log(user);
+    navigate(from,{replace: true})
   })
   .catch(error => setError(error.message))
   }
