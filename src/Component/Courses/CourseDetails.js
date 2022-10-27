@@ -10,7 +10,7 @@ const CourseDetails = () => {
     const { id, image, title, price, description, duration } = courseData
 
     return (
-        <div className='my-24 sm:w-0  md:w-[60%] mx-auto'>
+        <div className='my-24 sm:w-0  md:w-[40%] mx-auto'>
 
             <div ref={ref} className="card lg:card-side bg-base-100 shadow-xl">
                 <figure><img src={image} alt="Album" /></figure>
