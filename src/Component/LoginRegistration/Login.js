@@ -1,7 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup ,FacebookAuthProvider, sendPasswordResetEmail} from 'firebase/auth';
 import React, { useContext } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../UserContext/UserContext';
 
 
@@ -12,11 +12,18 @@ const auth=getAuth()
 
 const Login = () => {
   const [error, setError ]  = useState(null)
-  const { signIn ,setUser} = useContext(AuthContext)
+  const { signIn ,googleLogin, facebookLogin,setUser} = useContext(AuthContext)
   const [userEmail,setUserEmail]=useState('')
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider=new FacebookAuthProvider();
 
+
+  const navigate=useNavigate()
+  let location=useLocation()
+  let from = location.state?.from?.pathname || "/";
+
+
+  
   const handleSgnIn = (e) => {
     e.preventDefault()
     const form = e.target;
@@ -35,17 +42,15 @@ const Login = () => {
       .catch(error => setError(error.message))
   }
   const handleGoogle=()=>{
-   signInWithPopup(auth,googleProvider)
+   googleLogin(googleProvider)
    .then(result => {
     const user = result.user;
     console.log(user);
-    setUser(user)
-
   })
   .catch(error => setError(error.message))
   }
   const handleFacebook=()=>{
-    signInWithPopup(auth,facebookProvider)
+    facebookLogin(facebookProvider)
     .then(result => {
       const user = result.user;
       console.log(user);

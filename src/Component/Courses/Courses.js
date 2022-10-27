@@ -8,7 +8,7 @@ const Courses = () => {
         
     return (
         <div className='flex flex-col md:flex-row spacey-6  md:space-y-0 md:space-x-12 mt-10'>
-            <div >
+            <div  >
                 <MediaHanger></MediaHanger>
             </div>
             <div className='md:flex-grow '>
